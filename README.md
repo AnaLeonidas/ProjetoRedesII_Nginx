@@ -16,9 +16,9 @@ Para executar o projeto e replicar os testes de estresse, siga as instruções a
 
 Navegue até o diretório raiz deste projeto no seu terminal e utilize o Docker Compose para levantar todos os serviços em segundo plano:
 
-# Sobe a rede, o Nginx, o Exporter, Prometheus e Grafana
+# Subir a rede, o Nginx, o Exporter, Prometheus e Grafana
 docker-compose up -d
-# Roda o script de teste com a quantidade de requisições desejada
+# Rodar o script de teste com a quantidade de requisições desejada
 python load_test.py
-# Para os containers após o uso
+# Parar os containers após o uso
 docker-compose down

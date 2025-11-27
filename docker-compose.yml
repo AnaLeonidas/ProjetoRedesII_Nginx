@@ -1,0 +1,60 @@
+networks:
+  monitoring-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 79.21.0.0/24
+          gateway: 79.21.0.1
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "80:80"  
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      monitoring-net:
+        ipv4_address: 79.21.0.10 
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    container_name: nginx_exporter
+    command: -nginx.scrape-uri http://79.21.0.10/stub_status
+    networks:
+      monitoring-net:
+        ipv4_address: 79.21.0.11 
+    depends_on:
+      - nginx
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_server
+    ports:
+      - "9090:9090" 
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      monitoring-net:
+        ipv4_address: 79.21.0.20 
+    depends_on:
+      - nginx-exporter
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_server
+    ports:
+      - "3000:3000" 
+    volumes:
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - grafana-data:/var/lib/grafana
+    networks:
+      monitoring-net:
+        ipv4_address: 79.21.0.30
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana-data:

@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s  
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['79.21.0.20:9090']
+
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['79.21.0.11:9113']

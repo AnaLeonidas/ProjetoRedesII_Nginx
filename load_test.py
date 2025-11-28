@@ -6,7 +6,7 @@ import statistics
 MATRICULA = "20239037921"
 NOME = "Ana"
 URL = "http://localhost:80"
-NUM_REQUISICOES_POR_CICLO = 3000
+NUM_REQUISICOES_POR_CICLO = 1000
 NUM_CICLOS = 10                     
 TIMEOUT_REQUISICAO = 10             
 

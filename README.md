@@ -22,3 +22,5 @@ docker-compose up -d
 python load_test.py
 # Parar os containers após o uso
 docker-compose down
+#Vídeo
+https://youtu.be/KF4USL-qVic?si=fIkwom7FrOHgM1pO
